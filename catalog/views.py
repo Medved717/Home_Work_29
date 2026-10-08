@@ -109,9 +109,10 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class CategoryProductView(LoginRequiredMixin, ListView):
-    model = 'product'
+    model = Product
     template_name = 'catalog/product_list_category.html'
     context_object_name = 'products'
 
-    def get_queryset(self, **kwargs):
+    def get_queryset(self):
+        category_name = self.kwargs.get('category_name')
         return CategoryProductService.view_category_product(category_name)
