@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 from django.views import View
+from .services import CategoryProductService
 
 
 class ProductListView(ListView):
@@ -105,3 +106,12 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'category'
     template_name = 'catalog/category_delete.html'
     success_url = reverse_lazy('catalog:product_list')
+
+
+class CategoryProductView(LoginRequiredMixin, ListView):
+    model = 'product'
+    template_name = 'catalog/product_list_category.html'
+    context_object_name = 'products'
+
+    def get_queryset(self, **kwargs):
+        return CategoryProductService.view_category_product(category_name)
