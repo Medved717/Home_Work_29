@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% block title %} Список блогов {% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="form-label">Заголовок</label>
+                    <input name='heading' class="form-control" placeholder="Наименование заголовка">
+                    <label class="form-label">Содержимое</label>
+                    <textarea name='content' class="form-control" placeholder="Оставьте данные о блоге здесь"
+                              id="floatingTextarea"
+                              style="height: 100px"></textarea>
+                    <label for="formFile" class="form-label">Ввод файла по умолчанию</label>
+                    <input name='preview' class="form-control" type="file" id="formFile">
+                    <div class="row mx-1 py-3 px-3">
+                        <div class="btn-group">
+                            <div class="col-6">
+                                {% if form.instance.pk %}
+                                <button type="submit" class="btn btn-primary">Изменить</button>
+                                {% else %}
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                {% endif %}
+                                <a href="{% url 'blog:blog_list' %}" class="btn btn-primary">Отменить</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% block title %}Каталог блогов{% endblock %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Каталог блогов</h1>
+    <p class="lead">На данной странице выводится вся информация о блогах.</p>
+</div>
+<div class="container">
+    <div class="row text-center">
+        {% for blog in blogs %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{blog.heading}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        {% if blog.preview %}
+                        <img src="{{ blog.preview.url }}" class="img-fluid rounded"
+                             style="height: 200px; object-fit: cover;" alt="{{ blog.heading }}">
+                        {% endif %}
+                        <li>Содержание блога: {{blog.content | truncatechars:20}}</li>
+                        <li>Дата создания: {{blog.create_at | date:'d M Y'}}</li>
+                        <li>Количество просмотров: {{blog.quantity_views}}</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    <a href="{% url 'blog:blog_detail' blog.pk %}" class="btn btn-lg btn-outline-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

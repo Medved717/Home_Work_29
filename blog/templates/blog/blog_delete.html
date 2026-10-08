@@ -1,0 +1,25 @@
+{% extends 'blog/base.html'%}
+{% block title %} Подробная информация {% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <div class="card mx-auto" style="width: 30rem;">
+                <h1>Вы действительно хотите удалить "{{blog.heading}}"?</h1>
+                <p>После подтверждения восстановить данные будет невозможно.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Удалить</button>
+                    <a href="{% url 'catalog:product_list'%}" class="btn btn-lg btn-outline-primary">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
+

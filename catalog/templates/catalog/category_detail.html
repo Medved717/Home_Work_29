@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html'%}
+{% block title %} Skystore {% endblock %}
+{% block content %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
+        продать</p>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <div class="card mx-auto" style="width: 30rem;">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{category.name}}</h4>
+                        <p>{{category.description}}</p>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                        <a href="{% url 'catalog:category_update' object.pk %}" class="btn btn-lg btn-outline-primary">Редактировать</a>
+                        <a href="{% url 'catalog:category_delete' object.pk %}" class="btn btn-lg btn-outline-danger">Удалить</a>
+                        <a href="{% url 'catalog:product_list'%}" class="btn btn-lg btn-outline-primary">Назад</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+
