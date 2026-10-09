@@ -18,6 +18,17 @@ class ProductListView(ListView):
     def get_queryset(self):
         return Product.objects.filter(publish=True)
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['categories'] = Category.objects.all()
+        return context_data
+
+    def get(self, request, *args, **kwargs):
+        category_name = request.GET.get('category')
+        if category_name:
+            return redirect('catalog:product_category', category_name=category_name)
+        return super().get(request, *args, **kwargs)
+
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product

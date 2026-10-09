@@ -6,6 +6,25 @@
     <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать</p>
 </div>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="mb-2">Товар по категории:</p>
+                    <form method="get" action="">
+                        <div class="input-group">
+                            <input type="text" name="category" class="form-control"
+                                   placeholder="Введите категорию"
+                                   value="{{ request.GET.category|default:'' }}">
+                            <button type="submit" class="btn btn-primary">Сформировать</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row text-center">
         {% for product in products %}
@@ -18,7 +37,8 @@
                     <h1 class="card-title pricing-card-title">{{product.buying_price}} RUB</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         {% if product.image %}
-                        <img src="{{ product.image.url }}" class="img-fluid rounded" style="height: 200px; object-fit: cover;" alt="{{ product.name }}">
+                        <img src="{{ product.image.url }}" class="img-fluid rounded"
+                             style="height: 200px; object-fit: cover;" alt="{{ product.name }}">
                         {% endif %}
                         <li>- {{product.category}}</li>
                         <li>- {{product.created_at | date:'d M Y'}}</li>
