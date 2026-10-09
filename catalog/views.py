@@ -1,3 +1,7 @@
+from django.core.cache import cache
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 from .forms import ProductForm, CategoryForm
 from .models import Product, Category
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, CreateView, DeleteView
@@ -16,7 +20,11 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(publish=True)
+        queryset = cache.get('product_list')
+        if queryset is None:
+            queryset = list(Product.objects.filter(publish=True))
+            cache.set('product_list', queryset, 60 * 15)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
